@@ -8,11 +8,15 @@ void runQuiz(List<Map<String, String>> questions) {
     String? userAnswer = stdin.readLineSync();
 
     if (userAnswer == null || userAnswer.trim().isEmpty) {
-      print('Invalid input. Skipping question.');
-      continue;
+      print('Invalid input. Please answer the question');
+      do {
+        print('\nQuestion ${i + 1}: ${questions[i]['question']}');
+        userAnswer = stdin.readLineSync();
+      } while (userAnswer == null || userAnswer.trim().isEmpty);
     }
 
-    if (userAnswer.trim().toLowerCase() == questions[i]['answer']!.toLowerCase()) {
+    if (userAnswer.trim().toLowerCase() ==
+        questions[i]['answer']!.toLowerCase()) {
       print('Correct!');
       correctAnswers++;
     } else {
@@ -23,6 +27,8 @@ void runQuiz(List<Map<String, String>> questions) {
   int totalQuestions = questions.length;
   double score = (correctAnswers / totalQuestions) * 100;
 
-  print('\nYou answered $correctAnswers out of $totalQuestions questions correctly.');
+  print(
+    '\nYou answered $correctAnswers out of $totalQuestions questions correctly.',
+  );
   print('Your final score: ${score.toStringAsFixed(0)}%');
 }
